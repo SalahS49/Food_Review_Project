@@ -48,8 +48,8 @@ public class ReviewServiceUnitTest {
 
 		reviews = List.of(new Review(9, 5, 8, restaurants.get(0)),
 				new Review(7, 7, 7, restaurants.get(0)));
-		reviewDTOs = List.of(new ReviewDTO(9, 5, 8, restaurantDTOs.get(0), reviews.get(0)),
-				new ReviewDTO(7, 7, 7, restaurantDTOs.get(1), reviews.get(1)));
+		reviewDTOs = List.of(new ReviewDTO(1, 9, 5, 8, restaurantDTOs.get(0)),
+				new ReviewDTO(2,7, 7, 7, restaurantDTOs.get(1)));
 	}
 
 	@Test
@@ -115,7 +115,7 @@ public class ReviewServiceUnitTest {
 
 		NewReviewDTO reviewDTO = new NewReviewDTO(review.getTaste(), review.getAppearance(), review.getRating());
 		ReviewDTO createdReviewDTO = new ReviewDTO(review.getId(), review.getTaste(), review.getAppearance(),
-				review.getRating());
+				review.getRating(), restaurantDTO);
 
 		when(modelMapper.map(reviewDTO, Review.class)).thenReturn(newReview);
 		when(reviewRepo.save(newReview)).thenReturn(review);
@@ -136,17 +136,17 @@ public class ReviewServiceUnitTest {
 
 		Review review = reviews.get(0);
 		int id = review.getId();
-		UpdateReviewDTO newReviewDTO = new UpdateReviewDTO(review.getTaste(), review.getAppearance(), review.getRating());
+		UpdateReviewDTO updateReviewDTO = new UpdateReviewDTO(review.getTaste(), review.getAppearance(), review.getRating());
 		RestaurantDTO restaurantDTO = restaurantDTOs.get(0);
 
-		ReviewDTO expected = new ReviewDTO(review.getId(), review.getTaste(), review.getAppearance(), review.getRating());
+		ReviewDTO expected = new ReviewDTO(review.getId(), review.getTaste(), review.getAppearance(), review.getRating(), restaurantDTO);
 
 		when(reviewRepo.existsById(id)).thenReturn(true);
 		when(reviewRepo.getById(id)).thenReturn(review);
 		when(reviewRepo.save(review)).thenReturn(review);
 		when(modelMapper.map(review, ReviewDTO.class)).thenReturn(expected);
 
-		ReviewDTO updated = reviewService.updateReview(newReviewDTO, id);
+		ReviewDTO updated = reviewService.updateReview(updateReviewDTO, id);
 
 		assertEquals(expected, updated);
 		verify(reviewRepo).existsById(id);

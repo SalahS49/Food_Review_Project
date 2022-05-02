@@ -15,12 +15,21 @@ public class ReviewDTO {
 	
 	private int rating;
 	
-	private RestaurantDTO restaurantDTO;
+	private RestaurantDTO restaurant;
 	
 	public ReviewDTO() {
 		
 	}
 	
+	public ReviewDTO(int id, int taste, int appearance, int rating, RestaurantDTO restaurant) {
+		super();
+		this.id = id;
+		this.taste = taste;
+		this.appearance = appearance;
+		this.rating = rating;
+		this.restaurant = restaurant;
+	}
+
 	public ReviewDTO(int taste, int appearance, int rating) {
 		super();
 		this.taste = taste;
@@ -61,22 +70,22 @@ public class ReviewDTO {
 	}
 
 	public RestaurantDTO getRestaurantDTO() {
-		return restaurantDTO;
+		return restaurant;
 	}
 
-	public void setRestaurantDTO(RestaurantDTO restaurantDTO) {
-		this.restaurantDTO = restaurantDTO;
+	public void setRestaurantDTO(RestaurantDTO restaurant) {
+		this.restaurant = restaurant;
 	}
 
 	@Override
 	public String toString() {
 		return "ReviewDTO [id=" + id + ", taste=" + taste + ", appearance=" + appearance + ", rating=" + rating
-				+ ", restaurantDTO=" + restaurantDTO + "]";
+				+ ", restaurantDTO=" + restaurant + "]";
 	}
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(appearance, id, rating, restaurantDTO, taste);
+		return Objects.hash(appearance, id, rating, restaurant, taste);
 	}
 
 	@Override
@@ -89,7 +98,7 @@ public class ReviewDTO {
 			return false;
 		ReviewDTO other = (ReviewDTO) obj;
 		return appearance == other.appearance && id == other.id && rating == other.rating
-				&& Objects.equals(restaurantDTO, other.restaurantDTO) && taste == other.taste;
+				&& Objects.equals(restaurant, other.restaurant) && taste == other.taste;
 	}
 	
 	
