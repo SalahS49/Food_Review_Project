@@ -9,7 +9,6 @@ import javax.validation.constraints.Size;
 
 public class UpdateReviewDTO {
 
-
 	@NotNull
 	@Min(1)
 	@Max(10)
@@ -22,6 +21,13 @@ public class UpdateReviewDTO {
 	@Min(1)
 	@Max(10)
 	private int rating;
+
+	public UpdateReviewDTO(int taste, int appearance, int rating) {
+		super();
+		this.taste = taste;
+		this.appearance = appearance;
+		this.rating = rating;
+	}
 
 	public int getTaste() {
 		return taste;
